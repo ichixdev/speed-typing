@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { MdRefresh } from 'react-icons/md';
 
-const RestartButton = ({
+export const RestartButton = ({
   onRestart: handleRestart,
   className = '',
 }: {
@@ -25,5 +25,3 @@ const RestartButton = ({
     </button>
   );
 };
-
-export default RestartButton;

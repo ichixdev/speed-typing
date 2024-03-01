@@ -1,23 +1,44 @@
-import { faker } from '@faker-js/faker';
-import RestartButton from './components/RestartButtom';
-
-const words = faker.word.words(10);
+import { Results, UserTypings } from './components';
+import { RestartButton } from './components/RestartButtom';
+import { useEngine } from './hooks';
 
 const App = () => {
+  const { state, words, timeLeft, typed } = useEngine();
+
   return (
     <>
-      <CountdownTimer timeLeft={30}></CountdownTimer>
-      <GenerateWords words={words}></GenerateWords>
+      <CountdownTimer timeLeft={timeLeft}></CountdownTimer>
+      <WordsContainer>
+        <GenerateWords words={words}></GenerateWords>
+        <UserTypings
+          className="absolute inset-0"
+          userInput={typed}
+        ></UserTypings>
+      </WordsContainer>
       <RestartButton
         className='"mx-auto mt-10 text-slate-500'
         onRestart={() => null}
       ></RestartButton>
+      <Results
+        className="mt-10"
+        erros={10}
+        accuaracyPorcentage={100}
+        total={200}
+      ></Results>
     </>
   );
 };
 
+const WordsContainer = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="relative max-w-xl mt-3 text-3xl leading-relaxed break-all">
+      {children}
+    </div>
+  );
+};
+
 const GenerateWords = ({ words }: { words: string }) => {
-  return <div className="text-4xl text-center text-slate-500">{words}</div>;
+  return <div className="text-slate-500">{words}</div>;
 };
 
 const CountdownTimer = ({ timeLeft }: { timeLeft: number }) => {
