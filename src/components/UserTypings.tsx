@@ -1,24 +1,52 @@
+import classNames from 'classnames';
 import { Caret } from './Caret';
 
 export const UserTypings = ({
   userInput,
   className,
+  words,
 }: {
   userInput: string;
   className: string;
+  words: string;
 }) => {
   const typedCharacters = userInput.split('');
 
   return (
     <div className={className}>
       {typedCharacters.map((char, index) => {
-        return <Character key={`${char}_${index}`} char={char}></Character>;
+        return (
+          <Character
+            key={`${char}_${index}`}
+            actual={char}
+            expected={words[index]}
+          ></Character>
+        );
       })}
       <Caret></Caret>
     </div>
   );
 };
 
-const Character = ({ char }: { char: string }) => {
-  return <span className="text-primary-400">{char}</span>;
+const Character = ({
+  actual,
+  expected,
+}: {
+  actual: string;
+  expected: string;
+}) => {
+  const isCorrect = actual === expected;
+  const isWhiteSpace = expected === ' ';
+
+  return (
+    <span
+      className={classNames({
+        'text-red-500': !isCorrect && !isWhiteSpace,
+        'text-primary-400': isCorrect && !isWhiteSpace,
+        'bg-red-500/50': !isCorrect && isWhiteSpace,
+      })}
+    >
+      {expected}
+    </span>
+  );
 };

@@ -12,6 +12,7 @@ const App = () => {
         <GenerateWords words={words}></GenerateWords>
         <UserTypings
           className="absolute inset-0"
+          words={words}
           userInput={typed}
         ></UserTypings>
       </WordsContainer>
