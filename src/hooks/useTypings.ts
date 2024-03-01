@@ -37,6 +37,7 @@ export const useTypings = (enabled: boolean) => {
 
   const clearTyped = useCallback(() => {
     setTyped('');
+    setCursor(0);
   }, []);
 
   const resetTotalTyped = useCallback(() => {

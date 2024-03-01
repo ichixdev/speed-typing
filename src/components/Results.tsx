@@ -1,13 +1,16 @@
 import { motion } from 'framer-motion';
 import { formatPercentage } from '../utils/helpers';
+import { State } from '../hooks/useEngine';
 
 export const Results = ({
-  erros,
+  state,
+  errors,
   accuaracyPorcentage,
   total,
   className,
 }: {
-  erros: number;
+  state: State;
+  errors: number;
   accuaracyPorcentage: number;
   total: number;
   className?: string;
@@ -15,6 +18,10 @@ export const Results = ({
   const inital = { opacity: 0 };
   const animate = { opacity: 1 };
   const duration = { duration: 0.3 };
+
+  if (state !== 'finish') {
+    return null;
+  }
 
   return (
     <ul
@@ -41,7 +48,7 @@ export const Results = ({
         transition={{ ...duration, delay: 1 }}
         className="text-red-500"
       >
-        Erros : {erros}
+        Errors : {errors}
       </motion.li>
       <motion.li
         initial={inital}

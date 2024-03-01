@@ -15,11 +15,10 @@ export const useCountdownTimer = (seconds: number) => {
   const resetCountdown = useCallback(() => {
     console.log('resetting countdown...');
 
-    if (!intervalRef.current) {
-      setTimeLeft(seconds);
-      return;
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
     }
-    clearInterval(intervalRef.current);
+    setTimeLeft(seconds);
   }, [seconds]);
 
   // when the countdown reaches 0, clear the countdown interval

@@ -1,9 +1,11 @@
 import { Results, UserTypings } from './components';
 import { RestartButton } from './components/RestartButtom';
 import { useEngine } from './hooks';
+import { calculateAccuracyPercentage } from './utils/helpers';
 
 const App = () => {
-  const { state, words, timeLeft, typed } = useEngine();
+  const { state, words, timeLeft, typed, errors, restart, totalTyped } =
+    useEngine();
 
   return (
     <>
@@ -18,13 +20,14 @@ const App = () => {
       </WordsContainer>
       <RestartButton
         className='"mx-auto mt-10 text-slate-500'
-        onRestart={() => null}
+        onRestart={restart}
       ></RestartButton>
       <Results
+        state={state}
         className="mt-10"
-        erros={10}
-        accuaracyPorcentage={100}
-        total={200}
+        errors={errors}
+        accuaracyPorcentage={calculateAccuracyPercentage(errors, totalTyped)}
+        total={totalTyped}
       ></Results>
     </>
   );
